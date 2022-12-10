@@ -4,23 +4,13 @@ import 'dart:convert' as convert;
 
 import '../models/product.dart';
 
-class ProductHttpClient {
-  String baseUrl = "";
-  Future<Product> checkProduct(String code) async {
-    var url = Uri.http(baseUrl, "", {"code": code});
-
-    var response = await http.get(url);
-
-    var jsonResponse =
-        convert.jsonDecode(response.body) as Map<String, dynamic>;
-
-    var product = Product(jsonResponse["name"], jsonResponse["Price"],
-        jsonResponse["WeightOrVolume"], jsonResponse["HasVolume"]);
-
-    return product;
+class ProductHttp {
+  String baseUrl = "localhost:5239";
+  Uri productCheckingUri(String code) {
+    return Uri.http(baseUrl, "/api/Product/Check", {"code": code});
   }
 
-  // Future<HttpClientResponse> addToProduct() async {}
-  // Future<HttpClientResponse> registerProduct() async {}
-  // Future<HttpClientResponse> updateProduct() async {}
+  // Future<HttpClientResponse> addToProductUri() async {}
+  // Future<HttpClientResponse> registerProductUri() async {}
+  // Future<HttpClientResponse> updateProductUri() async {}
 }
